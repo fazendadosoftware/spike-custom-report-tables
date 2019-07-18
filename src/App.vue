@@ -18,9 +18,14 @@ export default {
           tableConfigCallback: () => {
             return {
               attributes: [
-                { key: 'id', label: 'FactSheet ID', sortable: true },
-                { key: 'type', label: 'FactSheet Type', sortable: false },
-                { key: 'name', label: 'FactSheet Name', sortable: false }
+                { key: 'id', label: 'FactSheet ID' },
+                'type', // attribute can be also a string
+                { key: 'name', label: 'FactSheet Name' },
+                { key: 'lifecycle', label: 'Lifecycle: plan', type: 'LIFECYCLE', virtualKey: 'plan', isCustomColumn: false },
+                { key: 'lifecycle', label: 'Lifecycle: phase in', type: 'LIFECYCLE', virtualKey: 'phaseIn', isCustomColumn: false },
+                { key: 'lifecycle', label: 'Lifecycle: active', type: 'LIFECYCLE', virtualKey: 'active', isCustomColumn: false },
+                { key: 'lifecycle', label: 'Lifecycle: phase out', type: 'LIFECYCLE', virtualKey: 'phaseOut', isCustomColumn: false },
+                { key: 'lifecycle', label: 'Lifecycle: end of life', type: 'LIFECYCLE', virtualKey: 'endOfLife', isCustomColumn: false }
               ]
             }
           },
@@ -29,16 +34,7 @@ export default {
               key: 'businessCapability',
               label: 'Business Capabilities',
               fixedFactSheetType: 'BusinessCapability',
-              attributes: ['id', 'name'],
-              callback: dataset => {
-                console.log('APPLICATIONS', dataset)
-              }
-            },
-            {
-              key: 'applications',
-              label: 'Applications',
-              fixedFactSheetType: 'BusinessCapability',
-              attributes: ['id', 'name'],
+              attributes: ['id', 'name', '...on BusinessCapability{lifecycle{asString}}'],
               callback: dataset => {
                 console.log('BUSINESS CAPABILITIES', dataset)
               }
@@ -46,6 +42,9 @@ export default {
           ]
         }
         this.$lx.ready(reportConfiguration)
+        setTimeout(() => {
+          console.log('TABLE', this.$lx.table)
+        })
       })
   }
 }
