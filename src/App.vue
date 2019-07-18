@@ -34,7 +34,7 @@ export default {
               key: 'businessCapability',
               label: 'Business Capabilities',
               fixedFactSheetType: 'BusinessCapability',
-              attributes: ['id', 'name', '...on BusinessCapability{lifecycle{asString}}'],
+              attributes: ['id', 'name', '...on BusinessCapability{lifecycle{phases{phase startDate}}}'],
               callback: dataset => {
                 console.log('BUSINESS CAPABILITIES', dataset)
               }
